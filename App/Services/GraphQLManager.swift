@@ -44,6 +44,10 @@ class GraphQLManager {
                 guard let urlResponse = request.urlResponse else { return }
                 let response = CachedURLResponse(response: urlResponse, data: data)
                 self.cache.storeCachedResponse(response, for: request)
+            }, receiveCompletion: { completion in
+                if case .failure(let error) = completion {
+                    self.logger.logError(error)
+                }
             })
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()

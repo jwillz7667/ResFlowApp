@@ -16,7 +16,11 @@ class OrderService {
         ]
 
         return Future<[Order], Error> { promise in
-            promise(.success(orders))
+            if Bool.random() {
+                promise(.success(orders))
+            } else {
+                promise(.failure(NSError(domain: "OrderService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch orders"])))
+            }
         }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
@@ -25,7 +29,11 @@ class OrderService {
     func createOrder(order: Order) -> AnyPublisher<Order, Error> {
         // Simulate creating an order in an API
         return Future<Order, Error> { promise in
-            promise(.success(order))
+            if Bool.random() {
+                promise(.success(order))
+            } else {
+                promise(.failure(NSError(domain: "OrderService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to create order"])))
+            }
         }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()

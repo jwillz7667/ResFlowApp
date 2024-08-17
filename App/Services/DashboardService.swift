@@ -18,7 +18,11 @@ class DashboardService {
 
         return Future<DashboardData, Error> { promise in
             DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
-                promise(.success(dashboardData))
+                if Bool.random() {
+                    promise(.success(dashboardData))
+                } else {
+                    promise(.failure(NSError(domain: "DashboardService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch dashboard data"])))
+                }
             }
         }
             .setFailureType(to: Error.self)

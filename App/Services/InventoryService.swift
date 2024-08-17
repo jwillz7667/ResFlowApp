@@ -16,7 +16,11 @@ class InventoryService {
         ]
 
         return Future<[InventoryItem], Error> { promise in
-            promise(.success(items))
+            if Bool.random() {
+                promise(.success(items))
+            } else {
+                promise(.failure(NSError(domain: "InventoryService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch inventory items"])))
+            }
         }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
@@ -25,7 +29,11 @@ class InventoryService {
     func addInventoryItem(item: InventoryItem) -> AnyPublisher<InventoryItem, Error> {
         // Simulate adding item to an API
         return Future<InventoryItem, Error> { promise in
-            promise(.success(item))
+            if Bool.random() {
+                promise(.success(item))
+            } else {
+                promise(.failure(NSError(domain: "InventoryService", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to add inventory item"])))
+            }
         }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
