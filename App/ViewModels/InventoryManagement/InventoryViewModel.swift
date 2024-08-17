@@ -11,7 +11,7 @@ class InventoryViewModel: ObservableObject {
 
     func loadInventoryItems() {
         InventoryService.shared.fetchInventoryItems()
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):
                     self.errorMessage = error.localizedDescription
@@ -26,7 +26,7 @@ class InventoryViewModel: ObservableObject {
 
     func addItem(_ item: InventoryItem) {
         InventoryService.shared.addInventoryItem(item: item)
-            .sink { completion in
+            .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):
                     self.errorMessage = error.localizedDescription

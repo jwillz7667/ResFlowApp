@@ -15,14 +15,18 @@ class MenuService {
             MenuItem(id: "2", name: "Caesar Salad", description: "Crisp romaine with Caesar dressing", price: 5.99, category: .appetizers, isAvailable: true)
         ]
 
-        return Just(items)
+        return Future<[MenuItem], Error> { promise in
+            promise(.success(items))
+        }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
     func addMenuItem(item: MenuItem) -> AnyPublisher<MenuItem, Error> {
         // Simulate adding item to an API
-        return Just(item)
+        return Future<MenuItem, Error> { promise in
+            promise(.success(item))
+        }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }

@@ -32,12 +32,17 @@ class GraphQLManager {
             body["variables"] = variables
         }
 
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        } catch {
+            return Fail(error: error).eraseToAnyPublisher()
+        }
 
         return attemptQuery(request: request, retries: retries)
             .decode(type: T.self, decoder: JSONDecoder())
             .handleEvents(receiveOutput: { data in
-                let response = CachedURLResponse(response: request.urlResponse!, data: data)
+                guard let urlResponse = request.urlResponse else { return }
+                let response = CachedURLResponse(response: urlResponse, data: data)
                 self.cache.storeCachedResponse(response, for: request)
             })
             .receive(on: DispatchQueue.main)

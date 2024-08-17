@@ -15,14 +15,18 @@ class OrderService {
             Order(id: "2", tableNumber: 2, items: [OrderItem(id: "2", name: "Salad", quantity: 1, specialRequests: nil, price: 5.99)], status: .preparing, createdAt: Date(), updatedAt: Date())
         ]
 
-        return Just(orders)
+        return Future<[Order], Error> { promise in
+            promise(.success(orders))
+        }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
     func createOrder(order: Order) -> AnyPublisher<Order, Error> {
         // Simulate creating an order in an API
-        return Just(order)
+        return Future<Order, Error> { promise in
+            promise(.success(order))
+        }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }

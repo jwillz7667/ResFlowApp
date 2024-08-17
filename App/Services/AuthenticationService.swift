@@ -27,6 +27,8 @@ class AuthenticationService {
                 case .success(let user):
                     completion(.success(user))
                 case .failure(let error):
+                    self.logError(error)
+                    self.logError(error)
                     completion(.failure(error))
                 }
             }

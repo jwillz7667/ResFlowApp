@@ -15,14 +15,18 @@ class InventoryService {
             InventoryItem(id: "2", name: "Tomato Sauce", quantity: 20, supplier: nil, reorderLevel: 10, unitPrice: 1.75)
         ]
 
-        return Just(items)
+        return Future<[InventoryItem], Error> { promise in
+            promise(.success(items))
+        }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
     func addInventoryItem(item: InventoryItem) -> AnyPublisher<InventoryItem, Error> {
         // Simulate adding item to an API
-        return Just(item)
+        return Future<InventoryItem, Error> { promise in
+            promise(.success(item))
+        }
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }

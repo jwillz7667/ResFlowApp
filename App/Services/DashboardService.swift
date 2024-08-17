@@ -16,7 +16,11 @@ class DashboardService {
             topSellingItems: ["Pizza": 50, "Burger": 30, "Pasta": 20]
         )
 
-        return Just(dashboardData)
+        return Future<DashboardData, Error> { promise in
+            DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+                promise(.success(dashboardData))
+            }
+        }
             .setFailureType(to: Error.self)
             .delay(for: .seconds(2), scheduler: DispatchQueue.main)
             .eraseToAnyPublisher()
