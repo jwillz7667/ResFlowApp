@@ -11,33 +11,6 @@ const MenuItem = sequelize.define('MenuItem', {
         validate: {
             notEmpty: true,
         },
-    },
-    description: {
-        type: DataTypes.TEXT,
-        validate: {
-            notEmpty: true,
-        },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    description: {
-        type: DataTypes.TEXT,
-    },
-    price: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false,
-        validate: {
-            min: 0,
-        },
-    },
-    category: {
-        type: DataTypes.STRING,
-    },
-    isAvailable: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-    },
 }, {
     timestamps: true,
 });
