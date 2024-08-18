@@ -8,7 +8,15 @@ const MenuItem = sequelize.define('MenuItem', {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+        validate: {
+            notEmpty: true,
+        },
     },
+    description: {
+        type: DataTypes.TEXT,
+        validate: {
+            notEmpty: true,
+        },
     name: {
         type: DataTypes.STRING,
         allowNull: false,

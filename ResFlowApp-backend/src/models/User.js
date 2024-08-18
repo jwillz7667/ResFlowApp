@@ -8,6 +8,16 @@ const User = sequelize.define('User', {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+        validate: {
+            notEmpty: true,
+        },
+    },
+    role: {
+        type: DataTypes.ENUM('admin', 'manager', 'staff'),
+        defaultValue: 'staff',
+        validate: {
+            isIn: [['admin', 'manager', 'staff']],
+        },
     },
     username: {
         type: DataTypes.STRING,

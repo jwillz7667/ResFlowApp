@@ -9,6 +9,9 @@ const Order = sequelize.define('Order', {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+        validate: {
+            isIn: [['pending', 'preparing', 'served', 'completed']],
+        },
     },
     userId: {
         type: DataTypes.UUID,

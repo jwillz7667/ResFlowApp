@@ -14,10 +14,13 @@ function authenticateToken(req, res, next) {
 
     try {
         const verified = jwt.verify(token, process.env.JWT_SECRET);
+        if (Date.now() >= verified.exp * 1000) {
+            return res.status(401).send('Token expired');
+        }
         req.user = verified;
         next();
     } catch (err) {
-        res.status(400).send('Invalid Token');
+        res.status(400).send('Invalid or Expired Token');
     }
 }
 

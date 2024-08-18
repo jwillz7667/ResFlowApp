@@ -16,6 +16,7 @@ const sequelize = new Sequelize(
 );
 
 const connectWithRetry = () => {
+    console.log('Attempting to connect to PostgreSQL...');
     sequelize.authenticate()
         .then(() => console.log('PostgreSQL connected...'))
         .catch(err => {
