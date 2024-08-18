@@ -1,1 +1,13 @@
 .aider*
+.env
+package-lock.json
+Dockerfile
+docker-compose.yml
+README.md
+config/database.js
+app.js
+controllers/
+models/
+routes/
+middleware/
+tests/
