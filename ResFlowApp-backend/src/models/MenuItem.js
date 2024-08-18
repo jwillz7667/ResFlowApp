@@ -14,6 +14,17 @@ const MenuItem = sequelize.define('MenuItem', {
         },
 }, {
     timestamps: true,
+    paranoid: true, // Enable soft deletes
 });
+
+MenuItem.associate = (models) => {
+    MenuItem.belongsToMany(models.Order, {
+        through: 'OrderItems',
+        foreignKey: 'menuItemId',
+        as: 'orders',
+    });
+};
+
+module.exports = MenuItem;
 
 module.exports = MenuItem;
