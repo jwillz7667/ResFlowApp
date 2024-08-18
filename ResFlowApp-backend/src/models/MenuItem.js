@@ -2,6 +2,7 @@
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Order = require('./Order');
 
 const MenuItem = sequelize.define('MenuItem', {
     id: {
