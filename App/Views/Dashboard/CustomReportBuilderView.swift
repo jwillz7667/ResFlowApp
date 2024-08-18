@@ -17,9 +17,11 @@ struct CustomReportBuilderView: View {
 
             DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
                 .padding()
+                .accessibilityLabel("Start Date Picker")
 
             DatePicker("End Date", selection: $endDate, displayedComponents: .date)
                 .padding()
+                .accessibilityLabel("End Date Picker")
 
             Text("Select Metrics")
                 .font(.headline)

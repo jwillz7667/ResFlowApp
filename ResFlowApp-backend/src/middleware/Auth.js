@@ -4,7 +4,12 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 function authenticateToken(req, res, next) {
-    const token = req.header('Authorization');
+    const authHeader = req.header('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).send('Access Denied');
+    }
+
+    const token = authHeader.split(' ')[1];
     if (!token) return res.status(401).send('Access Denied');
 
     try {

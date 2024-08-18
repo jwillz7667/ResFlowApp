@@ -15,8 +15,15 @@ const sequelize = new Sequelize(
     }
 );
 
-sequelize.authenticate()
-    .then(() => console.log('PostgreSQL connected...'))
-    .catch(err => console.error('Unable to connect to PostgreSQL:', err));
+const connectWithRetry = () => {
+    sequelize.authenticate()
+        .then(() => console.log('PostgreSQL connected...'))
+        .catch(err => {
+            console.error('Unable to connect to PostgreSQL:', err);
+            setTimeout(connectWithRetry, 5000); // Retry after 5 seconds
+        });
+};
+
+connectWithRetry();
 
 module.exports = sequelize;
