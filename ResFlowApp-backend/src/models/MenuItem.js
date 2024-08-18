@@ -11,7 +11,7 @@ const MenuItem = sequelize.define('MenuItem', {
         primaryKey: true,
         validate: {
             notEmpty: true,
-        },
+        }
 }, {
     timestamps: true,
     paranoid: true, // Enable soft deletes
